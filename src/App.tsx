@@ -15,6 +15,25 @@ const appStyle: CSSProperties = {
   fontFamily: 'sans-serif',
 }
 
+const infoSectionStyle: CSSProperties = {
+  border: '1px solid #ccc',
+  borderRadius: '4px',
+  padding: '12px 16px',
+  marginBottom: '16px',
+}
+
+const infoTitleStyle: CSSProperties = {
+  margin: '0 0 8px 0',
+  fontSize: '14px',
+  fontWeight: 'bold',
+}
+
+const infoBodyStyle: CSSProperties = {
+  margin: 0,
+  fontSize: '14px',
+  lineHeight: '1.6',
+}
+
 export default function App() {
   const [logs, setLogs] = useState<LogItem[]>(() => loadLogs())
   const [currentCommand, setCurrentCommand] = useState<string | null>(null)
@@ -59,6 +78,26 @@ export default function App() {
   return (
     <div style={appStyle}>
       <h1 style={{ marginBottom: '24px' }}>AI Manager Simulator</h1>
+      <div style={infoSectionStyle}>
+        <p style={infoTitleStyle}>Concept</p>
+        <p style={infoBodyStyle}>
+          This app is the artwork.<br />
+          AI issues commands.<br />
+          Human implements and reports.<br />
+          AI reviews.<br />
+          All actions are logged and persisted.
+        </p>
+      </div>
+      <div style={infoSectionStyle}>
+        <p style={infoTitleStyle}>How to Demo</p>
+        <ol style={{ ...infoBodyStyle, paddingLeft: '20px', margin: 0 }}>
+          <li>Click "Generate Command"</li>
+          <li>Write a short report and submit</li>
+          <li>Observe "Review Log" and "System Log"</li>
+          <li>Reload the page and confirm logs persist</li>
+          <li>Click "Clear Review Logs" (System Log remains)</li>
+        </ol>
+      </div>
       <CommandPanel currentCommand={currentCommand} onGenerate={handleCommandGenerated} />
       <ReportPanel currentCommand={currentCommand} onSubmit={handleReportSubmit} />
       <ReviewLogPanel logs={logs} onClear={handleClearLogs} />
