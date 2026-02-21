@@ -23,10 +23,11 @@ const titleStyle: CSSProperties = {
 }
 
 type Props = {
+  currentCommand: string | null
   onGenerate: (command: string) => void
 }
 
-export default function CommandPanel({ onGenerate }: Props) {
+export default function CommandPanel({ currentCommand, onGenerate }: Props) {
   function handleGenerate() {
     const index = Math.floor(Math.random() * COMMANDS.length)
     onGenerate(COMMANDS[index])
@@ -36,6 +37,9 @@ export default function CommandPanel({ onGenerate }: Props) {
     <div style={panelStyle}>
       <h2 style={titleStyle}>Command Panel</h2>
       <button onClick={handleGenerate}>Generate Command</button>
+      <p style={{ marginTop: '8px' }}>
+        {currentCommand ? <>Current Command: {currentCommand}</> : 'No current command.'}
+      </p>
     </div>
   )
 }

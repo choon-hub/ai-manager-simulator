@@ -30,12 +30,17 @@ export default function App() {
     setCurrentCommand(null)
   }
 
+  function handleClearLogs() {
+    saveLogs([])
+    setLogs([])
+  }
+
   return (
     <div style={appStyle}>
       <h1 style={{ marginBottom: '24px' }}>AI Manager Simulator</h1>
-      <CommandPanel onGenerate={handleCommandGenerated} />
+      <CommandPanel currentCommand={currentCommand} onGenerate={handleCommandGenerated} />
       <ReportPanel currentCommand={currentCommand} onSubmit={handleReportSubmit} />
-      <ReviewLogPanel logs={logs} />
+      <ReviewLogPanel logs={logs} onClear={handleClearLogs} />
     </div>
   )
 }
