@@ -1,4 +1,5 @@
 import type { SystemLogItem } from '../types'
+import { ja } from '../ui/ja'
 
 type Props = {
   systemLogs: SystemLogItem[]
@@ -25,11 +26,11 @@ export default function SystemLogPanel({ systemLogs }: Props) {
           <polyline points="4 17 10 11 4 5" />
           <line x1="12" y1="19" x2="20" y2="19" />
         </svg>
-        System Log Panel
+        {ja.panels.systemLogTitle}
       </h2>
       {systemLogs.length === 0 ? (
         <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 text-center">
-          No system logs yet. Actions will appear here.
+          {ja.empty.systemEmpty}
         </div>
       ) : (
         <div className="max-h-80 overflow-auto pr-1">

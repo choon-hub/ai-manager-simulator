@@ -6,6 +6,7 @@ import CommandPanel from './components/CommandPanel'
 import ReportPanel from './components/ReportPanel'
 import ReviewLogPanel from './components/ReviewLogPanel'
 import SystemLogPanel from './components/SystemLogPanel'
+import { ja } from './ui/ja'
 
 export default function App() {
   const [logs, setLogs] = useState<LogItem[]>(() => loadLogs())
@@ -32,48 +33,44 @@ export default function App() {
 
   function handleCommandGenerated(command: string) {
     setCurrentCommand(command)
-    appendSystemLog('COMMAND_GENERATED', `AI: Generated command "${command}"`)
+    appendSystemLog('COMMAND_GENERATED', `AI：命令を生成「${command}」`)
   }
 
   function handleReportSubmit(log: LogItem) {
     setLogs(prev => [log, ...prev])
     setCurrentCommand(null)
-    appendSystemLog('REPORT_SUBMITTED', `Human: Submitted report (${log.report.length} chars)`)
-    appendSystemLog('REVIEW_CREATED', `AI: Review result "${log.review}"`)
+    appendSystemLog('REPORT_SUBMITTED', `Human：報告を送信（${log.report.length}文字）`)
+    appendSystemLog('REVIEW_CREATED', `AI：査定結果「${log.review}」`)
   }
 
   function handleClearLogs() {
     saveLogs([])
     setLogs([])
-    appendSystemLog('LOG_CLEARED', 'Human: Cleared review logs')
+    appendSystemLog('LOG_CLEARED', 'Human：査定ログをクリア')
   }
 
   const nextActionText = currentCommand
-    ? '1) Submit your report for the current command.'
-    : '1) Generate a command, then submit a report.'
+    ? ja.nextActionTextHasCommand
+    : ja.nextActionTextNoCommand
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
       <div className="max-w-5xl mx-auto p-4 sm:p-6 space-y-4">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">AI Manager Simulator</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{ja.appTitle}</h1>
         <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4 sm:p-5 hover:shadow-md transition-shadow">
-          <p className="text-sm font-semibold text-slate-900 mb-3">Concept</p>
+          <p className="text-sm font-semibold text-slate-900 mb-3">{ja.conceptTitle}</p>
           <p className="text-sm leading-relaxed text-slate-700">
-            This app is the artwork.<br />
-            AI issues commands.<br />
-            Human implements and reports.<br />
-            AI reviews.<br />
-            All actions are logged and persisted.
+            {ja.conceptBodyLines.map((line, i) => (
+              <span key={i}>{line}{i < ja.conceptBodyLines.length - 1 && <br />}</span>
+            ))}
           </p>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4 sm:p-5 hover:shadow-md transition-shadow">
-          <p className="text-sm font-semibold text-slate-900 mb-3">How to Demo</p>
+          <p className="text-sm font-semibold text-slate-900 mb-3">{ja.howToDemoTitle}</p>
           <ol className="text-sm leading-relaxed text-slate-700 list-decimal pl-5 space-y-1">
-            <li>Click "Generate Command"</li>
-            <li>Write a short report and submit</li>
-            <li>Observe "Review Log" and "System Log"</li>
-            <li>Reload the page and confirm logs persist</li>
-            <li>Click "Clear Review Logs" (System Log remains)</li>
+            {ja.howToDemoSteps.map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
           </ol>
         </div>
 
@@ -95,15 +92,15 @@ export default function App() {
                 <polyline points="12 8 16 12 12 16" />
                 <line x1="8" y1="12" x2="16" y2="12" />
               </svg>
-              <p className="text-sm font-semibold text-slate-900">Next Action</p>
+              <p className="text-sm font-semibold text-slate-900">{ja.nextActionTitle}</p>
             </div>
             {currentCommand ? (
               <span className="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-                AWAITING REPORT
+                {ja.nextActionAwaitingReport}
               </span>
             ) : (
               <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">
-                AWAITING COMMAND
+                {ja.nextActionAwaitingCommand}
               </span>
             )}
           </div>

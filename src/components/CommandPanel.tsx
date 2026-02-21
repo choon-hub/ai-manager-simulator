@@ -1,3 +1,5 @@
+import { ja } from '../ui/ja'
+
 const COMMANDS = [
   'Implement feature X',
   'Fix bug Y',
@@ -32,16 +34,18 @@ export default function CommandPanel({ currentCommand, onGenerate }: Props) {
         >
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
         </svg>
-        Command Panel
+        {ja.panels.commandTitle}
       </h2>
       <button
         onClick={handleGenerate}
         className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow transition active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Generate Command
+        {ja.buttons.generateCommand}
       </button>
       <p className="mt-2 text-sm text-slate-700">
-        {currentCommand ? <>Current Command: {currentCommand}</> : 'No current command.'}
+        {currentCommand
+          ? <>{ja.labels.currentCommandLabel}{currentCommand}</>
+          : ja.labels.noCurrentCommand}
       </p>
     </div>
   )
