@@ -32,11 +32,13 @@ export default function SystemLogPanel({ systemLogs }: Props) {
           No system logs yet. Actions will appear here.
         </div>
       ) : (
-        systemLogs.map(log => (
-          <p key={log.id} className="font-mono text-xs text-slate-600 my-1">
-            [{formatTime(log.timestamp)}] {log.message}
-          </p>
-        ))
+        <div className="max-h-80 overflow-auto pr-1">
+          {systemLogs.map(log => (
+            <p key={log.id} className="font-mono text-xs text-slate-600 leading-relaxed border-b border-slate-100 py-1 last:border-0">
+              [{formatTime(log.timestamp)}] {log.message}
+            </p>
+          ))}
+        </div>
       )}
     </div>
   )
