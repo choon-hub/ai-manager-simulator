@@ -30,7 +30,7 @@ export default function ReviewLogPanel({ logs, onClear }: Props) {
   return (
     <div style={panelStyle}>
       <h2 style={titleStyle}>Review Log Panel</h2>
-      <button onClick={onClear} style={{ marginBottom: '12px' }}>Clear Logs</button>
+      <button onClick={onClear} style={{ marginBottom: '12px' }}>Clear Review Logs</button>
       {logs.length === 0 && <p>No logs yet.</p>}
       {logs.map(log => (
         <div key={log.id} style={itemStyle}>
