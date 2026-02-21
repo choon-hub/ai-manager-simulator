@@ -26,9 +26,14 @@ export default function CommandPanel({ currentCommand, onGenerate }: Props) {
       >
         Generate Command
       </button>
-      <p className="mt-2 text-sm text-slate-700">
-        {currentCommand ? <>Current Command: {currentCommand}</> : 'No current command.'}
-      </p>
+      {currentCommand ? (
+        <div className="mt-3 rounded-xl border border-indigo-200 bg-indigo-50 p-3">
+          <p className="text-xs font-semibold text-indigo-900">Current Command</p>
+          <p className="text-sm font-medium text-indigo-900">{currentCommand}</p>
+        </div>
+      ) : (
+        <p className="mt-3 text-sm text-slate-500">No current command.</p>
+      )}
     </div>
   )
 }
