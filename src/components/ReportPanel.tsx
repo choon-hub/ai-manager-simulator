@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { LogItem } from '../types'
+import { createId } from '../utils/id'
 
 const panelStyle: CSSProperties = {
   border: '2px solid #333',
@@ -28,7 +29,7 @@ export default function ReportPanel({ currentCommand, onSubmit }: Props) {
     if (!currentCommand) return
     const review = report.length > 20 ? 'Approved' : 'Needs more detail'
     const log: LogItem = {
-      id: crypto.randomUUID(),
+      id: createId(),
       command: currentCommand,
       report,
       review,
@@ -50,7 +51,7 @@ export default function ReportPanel({ currentCommand, onSubmit }: Props) {
         placeholder="Enter your implementation report..."
       />
       <br />
-      <button onClick={handleSubmit} style={{ marginTop: '8px' }}>Submit Report</button>
+      <button onClick={handleSubmit} disabled={!currentCommand} style={{ marginTop: '8px' }}>Submit Report</button>
     </div>
   )
 }
