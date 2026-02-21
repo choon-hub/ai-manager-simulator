@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import type { LogItem } from '../types'
 
 const panelStyle: CSSProperties = {
   border: '2px solid #333',
@@ -14,11 +15,29 @@ const titleStyle: CSSProperties = {
   paddingBottom: '8px',
 }
 
-export default function ReviewLogPanel() {
+const itemStyle: CSSProperties = {
+  borderBottom: '1px solid #ccc',
+  paddingBottom: '12px',
+  marginBottom: '12px',
+}
+
+type Props = {
+  logs: LogItem[]
+}
+
+export default function ReviewLogPanel({ logs }: Props) {
   return (
     <div style={panelStyle}>
       <h2 style={titleStyle}>Review Log Panel</h2>
-      <p>Review log area (not yet implemented)</p>
+      {logs.length === 0 && <p>No logs yet.</p>}
+      {logs.map(log => (
+        <div key={log.id} style={itemStyle}>
+          <p><strong>Command:</strong> {log.command}</p>
+          <p><strong>Report:</strong> {log.report}</p>
+          <p><strong>Review:</strong> {log.review}</p>
+          <p><strong>Time:</strong> {new Date(log.timestamp).toLocaleString()}</p>
+        </div>
+      ))}
     </div>
   )
 }
