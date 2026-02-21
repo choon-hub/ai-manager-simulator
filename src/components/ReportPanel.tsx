@@ -1,21 +1,6 @@
 import { useState } from 'react'
-import type { CSSProperties } from 'react'
 import type { LogItem } from '../types'
 import { createId } from '../utils/id'
-
-const panelStyle: CSSProperties = {
-  border: '2px solid #333',
-  padding: '16px',
-  marginBottom: '16px',
-}
-
-const titleStyle: CSSProperties = {
-  margin: '0 0 12px 0',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  borderBottom: '1px solid #999',
-  paddingBottom: '8px',
-}
 
 type Props = {
   currentCommand: string | null
@@ -40,18 +25,29 @@ export default function ReportPanel({ currentCommand, onSubmit }: Props) {
   }
 
   return (
-    <div style={panelStyle}>
-      <h2 style={titleStyle}>Report Panel</h2>
-      {currentCommand && <p><strong>Current Command:</strong> {currentCommand}</p>}
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4 sm:p-5">
+      <h2 className="text-sm font-semibold text-slate-900 mb-3">Report Panel</h2>
+      {currentCommand && (
+        <p className="text-sm text-slate-700 mb-3">
+          <strong>Current Command:</strong> {currentCommand}
+        </p>
+      )}
       <textarea
         value={report}
         onChange={e => setReport(e.target.value)}
         rows={4}
-        style={{ width: '100%', boxSizing: 'border-box' }}
+        className="w-full rounded-lg border border-slate-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         placeholder="Enter your implementation report..."
       />
-      <br />
-      <button onClick={handleSubmit} disabled={!currentCommand} style={{ marginTop: '8px' }}>Submit Report</button>
+      <div className="mt-3">
+        <button
+          onClick={handleSubmit}
+          disabled={!currentCommand}
+          className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Submit Report
+        </button>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,3 @@
-import type { CSSProperties } from 'react'
-
 const COMMANDS = [
   'Implement feature X',
   'Fix bug Y',
@@ -7,20 +5,6 @@ const COMMANDS = [
   'Write tests for service A',
   'Optimize query B',
 ]
-
-const panelStyle: CSSProperties = {
-  border: '2px solid #333',
-  padding: '16px',
-  marginBottom: '16px',
-}
-
-const titleStyle: CSSProperties = {
-  margin: '0 0 12px 0',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  borderBottom: '1px solid #999',
-  paddingBottom: '8px',
-}
 
 type Props = {
   currentCommand: string | null
@@ -34,10 +18,15 @@ export default function CommandPanel({ currentCommand, onGenerate }: Props) {
   }
 
   return (
-    <div style={panelStyle}>
-      <h2 style={titleStyle}>Command Panel</h2>
-      <button onClick={handleGenerate}>Generate Command</button>
-      <p style={{ marginTop: '8px' }}>
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4 sm:p-5">
+      <h2 className="text-sm font-semibold text-slate-900 mb-3">Command Panel</h2>
+      <button
+        onClick={handleGenerate}
+        className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Generate Command
+      </button>
+      <p className="mt-2 text-sm text-slate-700">
         {currentCommand ? <>Current Command: {currentCommand}</> : 'No current command.'}
       </p>
     </div>
